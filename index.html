@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Game Pokemon - TypeScript</title>
+    <link rel="stylesheet" href=".src/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pokemon Matching Game</h1>
+        
+        <div id="login-screen">
+            <input type="text" id="username" placeholder="Nhập tên của bạn...">
+            <button id="start-btn">Bắt đầu chơi</button>
+        </div>
+
+        <div id="game-screen" style="display: none;">
+            <div class="controls">
+                <button id="reset-btn">Chơi lại (Reset)</button>
+                <button id="cancel-btn">Hủy (Quay lại)</button>
+            </div>
+            <div class="pokemonWrapper">
+                </div>
+        </div>
+    </div>
+
+    <script src="dist/bundle.js"></script>
+</body>
+</html>
