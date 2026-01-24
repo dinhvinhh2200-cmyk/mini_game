@@ -1,21 +1,136 @@
+/* --- Giao diện tổng thể --- */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 1000px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+/* --- Màn hình đăng nhập --- */
+#login-screen input {
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 250px;
+    transition: border-color 0.3s;
+}
+
+#login-screen input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    margin: 5px;
+}
+
+#start-btn { background-color: #2ecc71; }
+#start-btn:hover { background-color: #27ae60; transform: translateY(-2px); }
+
+#reset-btn { background-color: #3498db; }
+#cancel-btn { background-color: #e74c3c; }
+button:hover { opacity: 0.9; transform: scale(1.05); }
+
+/* --- Lưới thẻ bài --- */
 .pokemonWrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Chia 4 cột */
-    gap: 10px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 2rem;
+    perspective: 1000px; /* Quan trọng để tạo hiệu ứng 3D */
+}
+
+/* --- Hiệu ứng lật thẻ "Mềm mại" (3D Flip) --- */
+.pokemon {
+    aspect-ratio: 3/4;
+    cursor: pointer;
 }
 
 .pokemon-card {
-    width: 100px;
-    height: 140px;
-    background-color: #ddd;
-    border-radius: 8px;
-    cursor: pointer;
     position: relative;
+    width: 100%;
+    height: 100%;
     text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Đường cong mượt hơn */
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Khi có class is-flipped, thẻ sẽ xoay 180 độ */
+.pokemon-card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Ẩn mặt đằng sau khi đang xoay */
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+}
+
+/* Mặt trước (Lưng thẻ) */
+.card-face.front {
+    background-color: #2c3e50;
+    background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+    color: white;
+}
+
+.card-face.front::after {
+    content: "?";
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+/* Mặt sau (Hiện Pokemon) */
+.card-face.back {
+    background-color: #fff;
+    transform: rotateY(180deg); /* Đảo mặt sau lại trước */
 }
 
 .card-face.back img {
     width: 80%;
-    margin-top: 10px;
+    height: auto;
+}
+
+.id {
+    font-size: 0.8rem;
+    color: #95a5a6;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 5px;
 }
